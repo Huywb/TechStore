@@ -1,4 +1,4 @@
-import { Clock, Mail, MapPin, Phone } from "lucide-react"
+import { Clock, GitCompareArrows, Headset, Mail, MapPin, Phone, ShieldCheck, Truck } from "lucide-react"
 
 
 export const menuData = [
@@ -42,3 +42,10 @@ export const productType = [
   { title: "Refrigerators", value: "refrigerators" },
   { title: "Others", value: "others" },
 ];
+
+export const extraData = [
+    {title: 'Free Delivery',description:'Free ship over $100',icon: <Truck size={35}/>},
+    {title: 'Free Return',description:'Free ship over $100',icon: <GitCompareArrows size={35} />},
+    {title: 'Customer Support',description:'Friendly 24/7 customer support',icon: <Headset size={35} />},
+    {title: 'Money Back guarantee',description:'Quality checked by our team',icon: <ShieldCheck size={35} />},
+]
