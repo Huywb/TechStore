@@ -21,7 +21,7 @@ const ProductClient = () => {
     setSelectedTab(selected);
   };
   return (
-    <div className="flex flex-col py-8">
+    <div className="flex flex-col py-8 mt-5">
       <ProductTab
         selectedTab={selectedTab}
         setSelectedTab={handleSelectedTab}

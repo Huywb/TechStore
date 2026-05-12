@@ -15,7 +15,7 @@ const ProductTab:React.FC<ProductTabProps> = ({selectedTab,setSelectedTab}) => {
         setSelectedTab(selected)
     }
   return (
-    <section className='flex justify-between flex-wrap items-center'>
+    <section className='flex justify-between flex-wrap items-center mb-5'>
       <div className='flex gap-4'>
         {
             productType.map((item)=>(

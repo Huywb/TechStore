@@ -1,12 +1,10 @@
 import { Product } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
-import { Flame, FlameIcon, ShoppingCart, Star } from "lucide-react";
+import { Flame } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Raiting from "../Raiting";
-import { Button } from "@/components/ui/button";
-import { SortStringShow } from "@/app/common/helper";
 import FavoriteClient from "./FavoriteClient";
 import AddToCartButton from "./AddToCartButton";
 
@@ -15,12 +13,13 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  console.log('123',product)
   return (
-    <div className="flex flex-col py-4 gap-2 ">
+    <div className="flex flex-col gap-2 ">
       <div className="border-gray-300 border rounded-md">
         <div className="relative group  p-2 border-gray-300 bg-gray-200/30  rounded-md cursor-pointer">
           {product.images && (
-            <Link href={`/product/${product._id}`}>
+            <Link href={`/product/${product.slug?.current}`}>
               <Image
                 src={urlFor(product?.images[0]).url()}
                 alt="Product image"
