@@ -1,5 +1,4 @@
-
-
+'use client'
 const Raiting = () => {
     const percent = (4.7 / 5) * 100 
   return (

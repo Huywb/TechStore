@@ -49,3 +49,8 @@ export const extraData = [
     {title: 'Customer Support',description:'Friendly 24/7 customer support',icon: <Headset size={35} />},
     {title: 'Money Back guarantee',description:'Quality checked by our team',icon: <ShieldCheck size={35} />},
 ]
+
+export const PriceFilter = [
+    {title:'High to Low',value:'asc'},
+    {title:'Low to High',value:'desc'},
+]
