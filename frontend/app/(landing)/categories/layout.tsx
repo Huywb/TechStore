@@ -10,7 +10,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const categories = await categoriesService.getCategories();
   return (
     <Container>
-      <TextHeader />
+      <TextHeader text="Products by Categories:"/>
       <div className="flex gap-4 mt-4">
         <CategorySideBar categories={categories}/>
         <div className="flex-6 ">{children}</div>
