@@ -54,3 +54,10 @@ export const PriceFilter = [
     {title:'High to Low',value:'asc'},
     {title:'Low to High',value:'desc'},
 ]
+
+
+export const ModeProductInformation = [
+    {title: "Description",value: 'description'},
+    {title: "Additional Information",value: 'additional Information'},
+    {title: "Reviews",value: 'reviews'},
+]

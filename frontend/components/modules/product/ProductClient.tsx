@@ -4,7 +4,6 @@ import ProductTab from "./ProductTab";
 import { productType } from "@/app/contants/data";
 import { useProduct } from "@/app/hooks/useProduct";
 import { AnimatePresence, motion } from "motion/react";
-import { Loader2 } from "lucide-react";
 import NoProductAvailable from "./NoProductAvailable";
 import ProductCard from "./ProductCard";
 import Loading from "../Loading";

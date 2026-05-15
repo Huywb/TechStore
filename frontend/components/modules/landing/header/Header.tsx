@@ -5,18 +5,15 @@ import HeaderMenu from "./HeaderMenu";
 import Search from "./Search";
 import CartIcon from "./CartIcon";
 import FavoriteIcon from "./FavoriteIcon";
-import Login from "../Login";
-import { Menu } from "lucide-react";
-import MobileMenu from "../MobileMenu";
+import Login from "./Login";
+import MobileMenu from "../sidemenu/MobileMenu";
 import { ClerkLoaded, UserButton, useUser } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
 
 const Header = () => {
 
   const {user} = useUser()
-  console.log(user)
   return (
-    <header className="border-b-black/20 border sticky top-0 right-0 left-0 z-50 bg-white">
+    <header className="border-b-black/20 border sticky top-0 right-0 left-0 z-50 bg-white/70 backdrop-blur-md">
       <Container className="flex justify-between items-center">
 
         {/*logo */}    
