@@ -60,6 +60,43 @@ export const useProduct = () => {
     }
   },[])
 
+  const getProductFilter = useCallback(async (params: ProductFilterRequest)=>{
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await ProductServices.getProductFilter(params);
+      if (!response) {
+        throw new Error("Failed to fetch products filter");
+      }
+      setProducts(response);
+    } catch (error) {
+      const message = "Error went fetch product filter" + error;
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  },[])
+
+  const getProductBySlug = useCallback(async (slug: string )=>{
+    setIsLoading(true);
+    setError(null);
+    try {
+      const params = {
+        slug
+      }
+      const response = await ProductServices.getProductBySlug(params);
+      if (!response) {
+        throw new Error("Failed to fetch products filter");
+      }
+      setProducts(response);
+    } catch (error) {
+      const message = "Error went fetch product filter" + error;
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  },[])
+
 
   return {
     ProductBySelected,
@@ -67,6 +104,8 @@ export const useProduct = () => {
     error,
     isLoading,
     getProductsByCategories,
-    getProductByHotDeal
+    getProductByHotDeal,
+    getProductFilter,
+    getProductBySlug
   };
 };
