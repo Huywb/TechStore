@@ -1,19 +1,50 @@
+"use client";
 import { Product } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
-import { Flame } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Flame,
+  Minus,
+  Plus,
+  Trash2Icon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Raiting from "../Raiting";
 import FavoriteClient from "./FavoriteClient";
 import AddToCartButton from "./AddToCartButton";
+import { useStore } from "@/app/store/cart.store";
+import toast from "react-hot-toast";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  console.log('123',product)
+  const quantity = useStore(
+    (state) =>
+      state.items.find((item) => item.product._id === product._id)?.quantity ||
+      0,
+  );
+  const { addItem, removeItem} = useStore();
+
+  const handleAddItem = (product:Product)=>{
+    if(quantity < product?.stock! ){
+        addItem(product)
+    } else{
+      toast.error(`${product.name} is Limit`)
+    }
+  }
+
+  const handleRemoveItem = (productId: string)=>{
+    removeItem(productId)
+    if(quantity <= 1){
+       toast.error(`Remove ${product.name} from cart success`)
+    }
+  }
+
   return (
     <div className="flex flex-col gap-2 ">
       <div className="border-gray-300 border rounded-md">
@@ -32,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
 
           <div className="absolute top-2 right-2 z-10 ">
-            <FavoriteClient />
+            <FavoriteClient product={product}/>
           </div>
 
           {product?.status == "hot" && (
@@ -52,14 +83,54 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
         </div>
         <div className="flex flex-col min-h-30   gap-1  p-2">
-            <span className="text-gray-500 text-xs line-clamp-1">{product.categories?.slice(0,3).join(' ').toUpperCase()}</span>
-            <span className="font-bold line-clamp-1">{product.name }...</span>
-            <Raiting />
-            <span>{product.stock ? 'In stock' : ' Out of stock'} {product.stock}</span>
-            <span className="font-bold">${(product.price! * (1 - product.discount!/100 )).toFixed(2)}   <span className="ml-3 text-gray-500 line-through ">${product.discount ? product.price : ''}</span></span>
+          <span className="text-gray-500 text-xs line-clamp-1">
+            {product.categories?.slice(0, 3).join(" ").toUpperCase()}
+          </span>
+          <span className="font-bold line-clamp-1">{product.name}...</span>
+          <Raiting />
+          <span>
+            {product.stock ? "In stock" : " Out of stock"} {product.stock}
+          </span>
+          <span className="font-bold">
+            ${product.price}{" "}
+            <span className="ml-3 text-gray-500 line-through ">
+              ${product.discount ? product.price! + (product.price! *  product.discount/100) : ""}
+            </span>
+          </span>
         </div>
-        <AddToCartButton product={product} className="max-w-40"/>
-            {/*
+        <div>
+          {quantity > 0 ? (
+            <div className="flex flex-col gap-2  px-2 text-sm">
+              <div className="flex justify-between ">
+                <p className="text-gray-500">Currency</p>
+                <div className="flex gap-3 items-center">
+                  <Minus
+                    className="text-gray-500 cursor-pointer hover:bg-shop_light_green hover:text-white hoverEffect  border"
+                    onClick={() => handleRemoveItem(product._id)}
+                  />
+                  <span className="font-bold">{quantity}</span>
+                  <Plus
+                    className=" text-gray-500 cursor-pointer hover:bg-shop_light_green hover:text-white hoverEffect  border"
+                    onClick={() => handleAddItem(product)}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between font-bold mb-1.5">
+                <p>Subtotal</p>
+                <span>${(product.price! * quantity).toFixed(2)}</span>
+              </div>
+            </div>
+          ) : (
+            <AddToCartButton product={product} className="max-w-40" />
+          )}
+        </div>
+        {/*
+        <div>
+                <Trash2Icon
+                  className="cursor-pointer hover:text-red-500 hoverEffect"
+                  onClick={() => handleDeleteProductFromCart(product._id)}
+                />
+              </div>
             <Button className='text-white bg-shop_dark_green hover:bg-shop_light_green hoverEffect max-w-30 p-4 mx-4 my-2 rounded-full cursor-pointer hover:translate-x-1'>
                 <ShoppingCart/>
                 Add to Cart

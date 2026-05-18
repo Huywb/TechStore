@@ -20,9 +20,9 @@ const ProductSideBar: React.FC<ProductSiderBarProps> = ({
   console.log(categories)
   
   return (
-    <div className="flex flex-col p-4 border-gray-300 border">
+    <div className="flex flex-col h-fit gap-6 p-4 border-gray-300 border">
       <div className="flex flex-col">
-        <h1>Product Categories</h1>
+        <h1 className="font-bold mb-2">Product Categories</h1>
         {categories?.map((category: Category) => (
           <div key={category._id}>
             <input type="checkbox" onChange={(e)=>toggleCategory(e.target.value)} value={category.slug?.current}></input> {category.title}
@@ -31,7 +31,7 @@ const ProductSideBar: React.FC<ProductSiderBarProps> = ({
       </div>
 
       <div className="flex flex-col">
-        <h1>Brands</h1>
+        <h1 className="font-bold mb-2 ">Brands</h1>
         {brands?.map((brand: Brand) => (
           <div key={brand._id}>
             <input type="checkbox" onChange={(e)=>toggleBrand(e.target.value)} value={brand.slug?.current}></input> {brand.title}
@@ -40,7 +40,7 @@ const ProductSideBar: React.FC<ProductSiderBarProps> = ({
       </div>
 
       <div className="flex flex-col">
-        <h1>Price</h1>
+        <h1 className="font-bold mb-2">Price</h1>
         {PriceFilter?.map((price: PriceFilter) => (
           <div key={price.value}>
             <input type="checkbox" onChange={(e :any)=>togglePrice(e.target.value)} value={price.value}></input> {price.title}
