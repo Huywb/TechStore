@@ -10,7 +10,9 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const brands = await BrandsService.getAllBrands()
   return (
     <Container>
+      <div className="flex justify-between">
       <TextHeader text="GET THE PRODUCT ASS YOU NEEDS"/>
+      </div>
       <div className="w-full h-[1px] bg-gray-300 mt-4"></div>
       <div className="flex gap-4 mt-4">
         <ProductSideBar categories={categories} brands={brands}/>

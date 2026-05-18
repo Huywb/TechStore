@@ -138,6 +138,7 @@ export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
+  url?:string
 };
 
 export type AuthorReference = {
@@ -219,6 +220,7 @@ export type Blogcategory = {
   title?: string;
   slug?: Slug;
   description?: string;
+  blogCount?: number
 };
 
 export type Author = {
