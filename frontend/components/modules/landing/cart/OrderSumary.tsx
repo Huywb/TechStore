@@ -3,10 +3,11 @@ import { useStore } from '@/app/store/cart.store'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import OrderButton from '../OrderButton'
 
 const OrderSumary = () => {
 
-    const {total,subTotal} = useStore()
+    const {total,subTotal,items} = useStore()
 
   return (
     <div className='bg-white p-4 flex flex-col gap-2 w-full h-fit'>
@@ -26,7 +27,7 @@ const OrderSumary = () => {
             <span>Total</span>
             <span>${total.toFixed(2)}</span>
         </div>
-        <Link href={'/'} className='p-2 w-full bg-shop_dark_green hover:bg-shop_light_green hoverEffect text-center rounded-full text-white'>Proceed to Checkout</Link>
+        <OrderButton items={items}/>
     </div>
   )
 }

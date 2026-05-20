@@ -24,7 +24,7 @@ const FavoriteClient: React.FC<FavoriteClientProps> = ({ product }) => {
   return (
     <div
       onClick={() => handleAddFavorite(product)}
-      className={`cursor-pointer ${isFavorite ? "bg-gray-500 text-white" : ""} p-1 border  w-full hover:bg-gray-500 hover:text-white hoverEffect  border-gray-500 font-medium rounded-full `}
+      className={` cursor-pointer ${isFavorite ? "bg-gray-500 text-white" : ""} p-1 border  w-full hover:bg-gray-500 hover:text-white hoverEffect  border-gray-500 font-medium rounded-full `}
     >
       <Heart size={20} />
     </div>
