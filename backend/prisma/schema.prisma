@@ -1,0 +1,203 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProductStatus {
+  NEW
+  HOT
+  SALE
+}
+
+enum VariantProduct {
+  GADGET
+  APPLIANCES
+  REFRIGERATORS
+  OTHERS
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  PAID
+  SHIPPED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentMode {
+  STRIPE
+  PAYPAL
+  VNPAY
+  MOMO
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  name        String
+  slug        String         @unique
+  description String
+  price       Float
+  discount    Float
+  stock       Int
+  status      ProductStatus  @default(NEW)
+  variant     VariantProduct @default(OTHERS)
+  isFeatured  Boolean        @default(false)
+  brandId     String
+  brand       Brand          @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  categoryId       String
+  category         Category          @relation(fields: [categoryId], references: [id])
+  images           String[]
+  isActive         Boolean           @default(true)
+  fullDescription  String
+  technicalDetails TechnicalDetail[]
+  rating           Rating[]
+  orderItems       OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([name])
+}
+
+model TechnicalDetail {
+  id        String  @id @default(cuid())
+  key       String
+  value     String
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Rating {
+  id          String   @id @default(cuid())
+  rating      Int
+  comment     String
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  clerkUserId String
+  userName    String
+  userEmail   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([clerkUserId, productId])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String
+  featured    Boolean   @default(false)
+  images      String[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+
+  @@index([slug])
+  @@index([title])
+}
+
+model Brand {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String
+  images      String[]
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([title])
+}
+
+model Order {
+  id                String          @id @default(cuid())
+  orderNumber       String          @unique
+  clerkUserId       String
+  customerName      String
+  email             String
+  paymentMode       PaymentMode
+  paymentStatus     PaymentStatus   @default(PENDING)
+  totalPrice        Float
+  amountDiscount    Float           @default(0)
+  currency          String
+  orderStatus       OrderStatus     @default(PENDING)
+  addressShippingId String
+  addressShipping   AddressShipping @relation(fields: [addressShippingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderItems OrderItem[]
+
+  @@index([orderNumber])
+  @@index([clerkUserId])
+  @@index([email])
+}
+
+model OrderItem {
+  id       String @id @default(cuid())
+  quantity Int
+  price    Float
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AddressShipping {
+  id           String @id @default(cuid())
+  clerkUserId  String
+  customerName String
+  email        String
+
+  address   String
+  isDefault Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+model Blog {
+  id    String @id @default(cuid())
+  title String
+  slug  String @unique
+
+  mainImage   String
+  url         String
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([title])
+}
