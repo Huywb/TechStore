@@ -49,6 +49,49 @@ enum PaymentStatus {
   REFUNDED
 }
 
+enum Role {
+  ADMIN
+  USER
+  GUEST
+}
+
+
+model User {
+  id          String   @id @default(cuid())
+  clerkUserId String?   @unique
+  name        String
+  email       String   @unique
+  role        Role     @default(USER)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orders Order[]
+
+  @@map("user")
+}
+
+model Image {
+  id String @id @default(cuid())
+
+  url      String
+  publicId String @unique
+
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  brandId String?
+  brand   Brand? @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  blogId String?
+  blog   Blog? @relation(fields: [blogId], references: [id])
+
+  createdAt DateTime @default(now())  
+
+  @@map("image")
+}
 model Product {
   id          String         @id @default(cuid())
   name        String
@@ -65,7 +108,7 @@ model Product {
 
   categoryId       String
   category         Category          @relation(fields: [categoryId], references: [id])
-  images           String[]
+  images           Image[]
   isActive         Boolean           @default(true)
   fullDescription  String
   technicalDetails TechnicalDetail[]
@@ -77,6 +120,9 @@ model Product {
 
   @@index([slug])
   @@index([name])
+
+  @@map("product")
+
 }
 
 model TechnicalDetail {
@@ -85,6 +131,8 @@ model TechnicalDetail {
   value     String
   productId String
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("technical_detail")
 }
 
 model Rating {
@@ -100,6 +148,7 @@ model Rating {
   updatedAt   DateTime @updatedAt
 
   @@unique([clerkUserId, productId])
+  @@map("rating")
 }
 
 model Category {
@@ -107,14 +156,15 @@ model Category {
   title       String
   slug        String    @unique
   description String
-  featured    Boolean   @default(false)
-  images      String[]
+  images      Image[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   products    Product[]
 
   @@index([slug])
   @@index([title])
+
+  @@map("category")
 }
 
 model Brand {
@@ -122,21 +172,25 @@ model Brand {
   title       String
   slug        String    @unique
   description String
-  images      String[]
+  images      Image[]
   products    Product[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
   @@index([slug])
   @@index([title])
+
+  @@map("brand")
 }
 
 model Order {
   id                String          @id @default(cuid())
   orderNumber       String          @unique
-  clerkUserId       String
+  clerkUserId       String?
   customerName      String
   email             String
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   paymentMode       PaymentMode
   paymentStatus     PaymentStatus   @default(PENDING)
   totalPrice        Float
@@ -154,6 +208,8 @@ model Order {
   @@index([orderNumber])
   @@index([clerkUserId])
   @@index([email])
+
+  @@map("order")
 }
 
 model OrderItem {
@@ -169,6 +225,8 @@ model OrderItem {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("order_item")
 }
 
 model AddressShipping {
@@ -184,6 +242,10 @@ model AddressShipping {
   updatedAt DateTime @updatedAt
 
   orders Order[]
+
+  @@index([clerkUserId])
+  @@index([email])
+  @@map("address_shipping")
 }
 
 model Blog {
@@ -191,7 +253,7 @@ model Blog {
   title String
   slug  String @unique
 
-  mainImage   String
+  mainImage   Image[]
   url         String
   description String
 
@@ -200,4 +262,6 @@ model Blog {
 
   @@index([slug])
   @@index([title])
+
+  @@map("blog")
 }
