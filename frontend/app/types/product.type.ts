@@ -22,3 +22,48 @@ interface ProductFilterRequest {
 interface ProductSlugRequest{
     slug: string
 }
+
+interface ProductImage {
+    secure_url: string,
+    secure_id: string
+}
+
+interface ProductTechnicalDetails {
+    key: string,
+    value: string
+}
+
+
+interface Product {
+    _id:string;
+  _createdAt: string;
+
+  name: string;
+  slug: string;
+  description: string;
+
+  price: number;
+  discount: number;
+  stock: number;
+
+  status: string;
+  variant: string;
+
+  isFeatured: boolean;
+
+  brand: string;
+  category: string;
+
+  isActive: boolean;
+
+  fullDescription: string;
+
+  technicalDetails: ProductTechnicalDetails[];
+
+  images: string[];
+}
+
+interface ImageType {
+    secure_url:string,
+    secure_id: string
+}
