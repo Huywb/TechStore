@@ -15,3 +15,11 @@ export const Capitalize = (value: string) => {
     
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
+
+export const getImageSrc = (image: ImageType) => {
+  if (image instanceof File) {
+    return URL.createObjectURL(image);
+  }
+
+  return image.secure_url;
+};

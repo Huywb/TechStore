@@ -60,10 +60,6 @@ interface Product {
 
   technicalDetails: ProductTechnicalDetails[];
 
-  images: string[];
+  images: ImageType[];
 }
 
-interface ImageType {
-    secure_url:string,
-    secure_id: string
-}
