@@ -4,43 +4,43 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Image from "next/image";
-import { CategoryType } from "@/app/types/category.type";
 import { getImageSrc } from "@/app/common/helper";
+import { BrandType } from "@/app/types/brand.type";
 
-interface AddCategoryModalProps {
+interface AddBrandModalProps {
   onClose: () => void;
   mode: boolean;
-  categoryEdit?: CategoryType;
+  brandEdit?: BrandType;
 }
 
 const formSchema = z.object({
-  title: z.string().min(1, "Category title is required"),
+  title: z.string().min(1, "Brand title is required"),
   slug: z.string().min(1, "Slug is required"),
   description: z.string().min(1, "Description is required"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
+const AddBrandModal: React.FC<AddBrandModalProps> = ({
   onClose,
   mode,
-  categoryEdit,
+  brandEdit,
 }) => {
   const [images, setImages] = useState<ImageType | null>(null);
 
   useEffect(() => {
-    if (categoryEdit) {
-      setImages(categoryEdit?.images[0]);
+    if (brandEdit) {
+      setImages(brandEdit?.images[0]);
     }
-  }, [categoryEdit]);
+  }, [brandEdit]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
 
     defaultValues: {
-      title: categoryEdit?.title ? categoryEdit?.title : "",
-      slug: categoryEdit?.slug ? categoryEdit.slug : "",
-      description: categoryEdit?.description ? categoryEdit.description : "",
+      title: brandEdit?.title ? brandEdit?.title : "",
+      slug: brandEdit?.slug ? brandEdit.slug : "",
+      description: brandEdit?.description ? brandEdit.description : "",
     },
   });
 
@@ -75,7 +75,7 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
             `}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Add Category</h2>
+          <h2 className="text-2xl font-bold">Add Brand</h2>
 
           <X onClick={onClose} className="cursor-pointer" />
         </div>
@@ -84,14 +84,14 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
           onSubmit={handleSubmit(handleCreateProduct)}
           className="flex flex-col gap-6"
         >
-          {/* Category title */}
+          {/* Brand title */}
           <div className="flex flex-col gap-2">
-            <label>Category Title: </label>
+            <label>Brand Title: </label>
 
             <input
               {...register("title")}
               type="text"
-              placeholder="Category title"
+              placeholder="Brand title"
               className="rounded-md bg-gray-200 p-2"
             />
 
@@ -168,7 +168,7 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
           </div>
 
           <button type="submit" className="rounded-md bg-blue-500 p-2">
-            Add Category
+            Add Brand
           </button>
         </form>
       </div>
@@ -176,4 +176,4 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
   );
 };
 
-export default AddCategoryModal;
+export default AddBrandModal;

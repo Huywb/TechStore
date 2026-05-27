@@ -1,4 +1,6 @@
 import { Box, Clock, GitCompareArrows, Headset, Home, Mail, MapPin, PanelBottomOpen, Phone, ShieldCheck, ShoppingCart, SlidersHorizontal, Tickets, Truck, User } from "lucide-react"
+import { EOrderStatus, EPaymentMode, EPaymentStatus, OrderType } from "../types/order.type"
+import { ERole, UserType } from "../types/user.type"
 
 
 export const menuData = [
@@ -173,8 +175,14 @@ export const mockProducts = [
       { key: "Bluetooth", value: "5.0" },
     ],
     images: [
-      "/images/products/speaker-1.png",
-      "/images/products/speaker-2.png",
+      {
+        secure_url: "/images/products/speaker-1.png",
+        public_id: "products/speaker-1",
+      },
+      {
+        secure_url: "/images/products/speaker-2.png",
+        public_id: "products/speaker-2",
+      },
     ],
   },
 
@@ -200,8 +208,14 @@ export const mockProducts = [
       { key: "Weight", value: "250g" },
     ],
     images: [
-      "/images/products/headphone-1.png",
-      "/images/products/headphone-2.png",
+      {
+        secure_url: "/images/products/headphone-1.png",
+        public_id: "products/headphone-1",
+      },
+      {
+        secure_url: "/images/products/headphone-2.png",
+        public_id: "products/headphone-2",
+      },
     ],
   },
 
@@ -227,8 +241,14 @@ export const mockProducts = [
       { key: "Storage", value: "256GB" },
     ],
     images: [
-      "/images/products/iphone-1.png",
-      "/images/products/iphone-2.png",
+      {
+        secure_url: "/images/products/iphone-1.png",
+        public_id: "products/iphone-1",
+      },
+      {
+        secure_url: "/images/products/iphone-2.png",
+        public_id: "products/iphone-2",
+      },
     ],
   },
 
@@ -254,8 +274,14 @@ export const mockProducts = [
       { key: "RAM", value: "12GB" },
     ],
     images: [
-      "/images/products/samsung-1.png",
-      "/images/products/samsung-2.png",
+      {
+        secure_url: "/images/products/samsung-1.png",
+        public_id: "products/samsung-1",
+      },
+      {
+        secure_url: "/images/products/samsung-2.png",
+        public_id: "products/samsung-2",
+      },
     ],
   },
 
@@ -281,8 +307,14 @@ export const mockProducts = [
       { key: "CPU", value: "Intel i9" },
     ],
     images: [
-      "/images/products/laptop-1.png",
-      "/images/products/laptop-2.png",
+      {
+        secure_url: "/images/products/laptop-1.png",
+        public_id: "products/laptop-1",
+      },
+      {
+        secure_url: "/images/products/laptop-2.png",
+        public_id: "products/laptop-2",
+      },
     ],
   },
 
@@ -308,8 +340,14 @@ export const mockProducts = [
       { key: "RGB", value: "Yes" },
     ],
     images: [
-      "/images/products/keyboard-1.png",
-      "/images/products/keyboard-2.png",
+      {
+        secure_url: "/images/products/keyboard-1.png",
+        public_id: "products/keyboard-1",
+      },
+      {
+        secure_url: "/images/products/keyboard-2.png",
+        public_id: "products/keyboard-2",
+      },
     ],
   },
 
@@ -335,8 +373,14 @@ export const mockProducts = [
       { key: "Water Resistant", value: "Yes" },
     ],
     images: [
-      "/images/products/watch-1.png",
-      "/images/products/watch-2.png",
+      {
+        secure_url: "/images/products/watch-1.png",
+        public_id: "products/watch-1",
+      },
+      {
+        secure_url: "/images/products/watch-2.png",
+        public_id: "products/watch-2",
+      },
     ],
   },
 
@@ -362,8 +406,14 @@ export const mockProducts = [
       { key: "Battery", value: "10000mAh" },
     ],
     images: [
-      "/images/products/tablet-1.png",
-      "/images/products/tablet-2.png",
+      {
+        secure_url: "/images/products/tablet-1.png",
+        public_id: "products/tablet-1",
+      },
+      {
+        secure_url: "/images/products/tablet-2.png",
+        public_id: "products/tablet-2",
+      },
     ],
   },
 
@@ -389,8 +439,14 @@ export const mockProducts = [
       { key: "Weight", value: "59g" },
     ],
     images: [
-      "/images/products/mouse-1.png",
-      "/images/products/mouse-2.png",
+      {
+        secure_url: "/images/products/mouse-1.png",
+        public_id: "products/mouse-1",
+      },
+      {
+        secure_url: "/images/products/mouse-2.png",
+        public_id: "products/mouse-2",
+      },
     ],
   },
 
@@ -416,15 +472,21 @@ export const mockProducts = [
       { key: "Refresh Rate", value: "120Hz" },
     ],
     images: [
-      "/images/products/monitor-1.png",
-      "/images/products/monitor-2.png",
+      {
+        secure_url: "/images/products/monitor-1.png",
+        public_id: "products/monitor-1",
+      },
+      {
+        secure_url: "/images/products/monitor-2.png",
+        public_id: "products/monitor-2",
+      },
     ],
   },
 ];
 
 export const mockCategories = [
   {
-    id: "clxk1a001category001",
+    _id: "clxk1a001category001",
     title: "Kitchen Appliances",
     slug: "kitchen-appliances",
     description:
@@ -434,7 +496,7 @@ export const mockCategories = [
       {
         secure_url:
           "https://res.cloudinary.com/demo/image/upload/kitchen-appliances.jpg",
-        secure_id: "categories/kitchen-appliances",
+        public_id: "categories/kitchen-appliances",
       },
     ],
 
@@ -445,7 +507,7 @@ export const mockCategories = [
   },
 
   {
-    id: "clxk1a002category002",
+    _id: "clxk1a002category002",
     title: "Smartphones",
     slug: "smartphones",
     description:
@@ -455,7 +517,7 @@ export const mockCategories = [
       {
         secure_url:
           "https://res.cloudinary.com/demo/image/upload/smartphones.jpg",
-        secure_id: "categories/smartphones",
+        public_id: "categories/smartphones",
       },
     ],
 
@@ -466,7 +528,7 @@ export const mockCategories = [
   },
 
   {
-    id: "clxk1a003category003",
+    _id: "clxk1a003category003",
     title: "Gaming Laptops",
     slug: "gaming-laptops",
     description:
@@ -476,7 +538,7 @@ export const mockCategories = [
       {
         secure_url:
           "https://res.cloudinary.com/demo/image/upload/gaming-laptops.jpg",
-        secure_id: "categories/gaming-laptops",
+        public_id: "categories/gaming-laptops",
       },
     ],
 
@@ -487,7 +549,7 @@ export const mockCategories = [
   },
 
   {
-    id: "clxk1a004category004",
+    _id: "clxk1a004category004",
     title: "Wireless Earbuds",
     slug: "wireless-earbuds",
     description:
@@ -497,7 +559,7 @@ export const mockCategories = [
       {
         secure_url:
           "https://res.cloudinary.com/demo/image/upload/wireless-earbuds.jpg",
-        secure_id: "categories/wireless-earbuds",
+        public_id: "categories/wireless-earbuds",
       },
     ],
 
@@ -508,7 +570,7 @@ export const mockCategories = [
   },
 
   {
-    id: "clxk1a005category005",
+    _id: "clxk1a005category005",
     title: "Smart Watches",
     slug: "smart-watches",
     description:
@@ -518,7 +580,7 @@ export const mockCategories = [
       {
         secure_url:
           "https://res.cloudinary.com/demo/image/upload/smart-watches.jpg",
-        secure_id: "categories/smart-watches",
+        public_id: "categories/smart-watches",
       },
     ],
 
@@ -529,7 +591,7 @@ export const mockCategories = [
   },
 
   {
-    id: "clxk1a006category006",
+    _id: "clxk1a006category006",
     title: "Home Speakers",
     slug: "home-speakers",
     description:
@@ -539,7 +601,7 @@ export const mockCategories = [
       {
         secure_url:
           "https://res.cloudinary.com/demo/image/upload/home-speakers.jpg",
-        secure_id: "categories/home-speakers",
+        public_id: "categories/home-speakers",
       },
     ],
 
@@ -550,7 +612,7 @@ export const mockCategories = [
   },
 
   {
-    id: "clxk1a007category007",
+    _id: "clxk1a007category007",
     title: "Office Accessories",
     slug: "office-accessories",
     description:
@@ -560,7 +622,7 @@ export const mockCategories = [
       {
         secure_url:
           "https://res.cloudinary.com/demo/image/upload/office-accessories.jpg",
-        secure_id: "categories/office-accessories",
+        public_id: "categories/office-accessories",
       },
     ],
 
@@ -570,3 +632,622 @@ export const mockCategories = [
     products: [],
   },
 ];
+
+export const mockBrands = [
+  {
+    _id: "brand_1",
+    title: "Apple",
+    slug: "apple",
+    description:
+      "Apple is a global technology brand known for premium smartphones, laptops, and accessories.",
+    images: [
+      {
+        public_id: "brands/apple-logo",
+        secure_url:
+          "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9",
+      },
+    ],
+    createdAt: "2026-05-27T08:00:00.000Z",
+    updatedAt: "2026-05-27T08:00:00.000Z",
+  },
+
+  {
+    _id: "brand_2",
+    title: "Samsung",
+    slug: "samsung",
+    description:
+      "Samsung produces a wide range of electronics including smartphones, TVs, and home appliances.",
+    images: [
+      {
+        public_id: "brands/samsung-logo",
+        secure_url:
+          "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf",
+      },
+    ],
+    createdAt: "2026-05-27T08:00:00.000Z",
+    updatedAt: "2026-05-27T08:00:00.000Z",
+  },
+
+  {
+    _id: "brand_3",
+    title: "Sony",
+    slug: "sony",
+    description:
+      "Sony is a Japanese brand famous for entertainment, cameras, gaming, and audio devices.",
+    images: [
+      {
+        public_id: "brands/sony-logo",
+        secure_url:
+          "https://images.unsplash.com/photo-1517336714739-489689fd1ca8",
+      },
+    ],
+    createdAt: "2026-05-27T08:00:00.000Z",
+    updatedAt: "2026-05-27T08:00:00.000Z",
+  },
+
+  {
+    _id: "brand_4",
+    title: "Xiaomi",
+    slug: "xiaomi",
+    description:
+      "Xiaomi offers affordable smartphones and smart home ecosystem products.",
+    images: [
+      {
+        public_id: "brands/xiaomi-logo",
+        secure_url:
+          "https://images.unsplash.com/photo-1598327105666-5b89351aff97",
+      },
+    ],
+    createdAt: "2026-05-27T08:00:00.000Z",
+    updatedAt: "2026-05-27T08:00:00.000Z",
+  },
+
+  {
+    _id: "brand_5",
+    title: "JBL",
+    slug: "jbl",
+    description:
+      "JBL specializes in portable speakers, headphones, and professional audio equipment.",
+    images: [
+      {
+        public_id: "brands/jbl-logo",
+        secure_url:
+          "https://images.unsplash.com/photo-1546435770-a3e426bf472b",
+      },
+    ],
+    createdAt: "2026-05-27T08:00:00.000Z",
+    updatedAt: "2026-05-27T08:00:00.000Z",
+  },
+];
+
+
+export const mockBlogs = [
+  {
+    _id: "blog_1",
+    title: "Top 10 Mechanical Keyboards for Developers",
+    slug: "top-10-mechanical-keyboards-for-developers",
+    images: [
+      {
+        secure_url:
+          "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae",
+        public_id: "keyboard_blog_1",
+      },
+    ],
+    url: "https://example.com/blog/mechanical-keyboards",
+    description:
+      "Discover the best mechanical keyboards for coding, gaming, and productivity in 2026.",
+    createdAt: "2026-05-20T08:00:00Z",
+    updatedAt: "2026-05-20T08:00:00Z",
+  },
+
+  {
+    _id: "blog_2",
+    title: "Why React Developers Love Next.js",
+    slug: "why-react-developers-love-nextjs",
+    images: [
+      {
+        secure_url:
+          "https://images.unsplash.com/photo-1633356122544-f134324a6cee",
+        public_id: "nextjs_blog_2",
+      },
+    ],
+    url: "https://example.com/blog/react-nextjs",
+    description:
+      "Learn why Next.js has become one of the most popular frameworks for React developers.",
+    createdAt: "2026-05-18T10:30:00Z",
+    updatedAt: "2026-05-18T10:30:00Z",
+  },
+
+  {
+    _id: "blog_3",
+    title: "Best Setup for Front-end Developers",
+    slug: "best-setup-for-frontend-developers",
+    images: [
+      {
+        secure_url:
+          "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+        public_id: "setup_blog_3",
+      },
+    ],
+    url: "https://example.com/blog/frontend-setup",
+    description:
+      "A complete guide to building a productive workspace for front-end development.",
+    createdAt: "2026-05-15T12:00:00Z",
+    updatedAt: "2026-05-15T12:00:00Z",
+  },
+
+  {
+    _id: "blog_4",
+    title: "Understanding TypeScript in 2026",
+    slug: "understanding-typescript-in-2026",
+    images: [
+      {
+        secure_url:
+          "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
+        public_id: "typescript_blog_4",
+      },
+    ],
+    url: "https://example.com/blog/typescript-guide",
+    description:
+      "Everything you need to know about TypeScript, from basics to advanced patterns.",
+    createdAt: "2026-05-10T09:45:00Z",
+    updatedAt: "2026-05-10T09:45:00Z",
+  },
+
+  {
+    _id: "blog_5",
+    title: "How to Optimize Website Performance",
+    slug: "how-to-optimize-website-performance",
+    images: [
+      {
+        secure_url:
+          "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+        public_id: "performance_blog_5",
+      },
+    ],
+    url: "https://example.com/blog/website-performance",
+    description:
+      "Improve loading speed, SEO, and user experience with these performance optimization techniques.",
+    createdAt: "2026-05-05T14:20:00Z",
+    updatedAt: "2026-05-05T14:20:00Z",
+  },
+]
+
+export const mockOrderItems = [
+  {
+    _id: "order_item_1",
+    quantity: 1,
+    price: 250,
+
+    productId: "product_1",
+    product: {
+      _id: "product_1",
+      name: "Mechanical Keyboard",
+      image:
+        "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae",
+      price: 250,
+    },
+
+    orderId: "order_1",
+
+    createdAt: "2026-05-20T08:00:00Z",
+    updatedAt: "2026-05-20T08:00:00Z",
+  },
+
+  {
+    _id: "order_item_2",
+    quantity: 2,
+    price: 100,
+
+    productId: "product_2",
+    product: {
+      _id: "product_2",
+      name: "Gaming Mouse",
+      image:
+        "https://images.unsplash.com/photo-1527814050087-3793815479db",
+      price: 100,
+    },
+
+    orderId: "order_1",
+
+    createdAt: "2026-05-20T08:00:00Z",
+    updatedAt: "2026-05-20T08:00:00Z",
+  },
+
+  {
+    _id: "order_item_3",
+    quantity: 1,
+    price: 120,
+
+    productId: "product_3",
+    product: {
+      _id: "product_3",
+      name: "Wireless Headphones",
+      image:
+        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+      price: 120,
+    },
+
+    orderId: "order_2",
+
+    createdAt: "2026-05-22T10:30:00Z",
+    updatedAt: "2026-05-22T10:30:00Z",
+  },
+
+  {
+    _id: "order_item_4",
+    quantity: 3,
+    price: 80,
+
+    productId: "product_4",
+    product: {
+      _id: "product_4",
+      name: "RGB Mouse Pad",
+      image:
+        "https://images.unsplash.com/photo-1587202372775-e229f172b9d7",
+      price: 80,
+    },
+
+    orderId: "order_3",
+
+    createdAt: "2026-05-25T09:15:00Z",
+    updatedAt: "2026-05-25T09:15:00Z",
+  },
+]
+
+export const mockUsers : UserType[] = [
+  {
+    _id: "user_1",
+    clerkUserId: "clerk_123456",
+    name: "Nguyen Van A",
+    email: "nguyenvana@example.com",
+    role: ERole.ADMIN,
+    createdAt: "2026-05-20T08:00:00Z",
+    updatedAt: "2026-05-20T08:00:00Z",
+    orders: [
+      {
+        _id: "order_1",
+        price: 250,
+        quantity: 4,
+        productId: "",
+        orderId: "",
+        createdAt: "",
+        updatedAt: ""
+      },
+    ],
+  },
+
+  {
+    _id: "user_2",
+    clerkUserId: "clerk_654321",
+    name: "Tran Thi B",
+    email: "tranthib@example.com",
+    role: Role.USER,
+    createdAt: "2026-05-18T10:30:00Z",
+    updatedAt: "2026-05-18T10:30:00Z",
+    orders: [
+      {
+        _id: "order_3",
+        totalPrice: 89,
+        status: "SHIPPING",
+      },
+    ],
+  },
+
+  {
+    _id: "user_3",
+    clerkUserId: "clerk_789456",
+    name: "Le Minh C",
+    email: "leminhc@example.com",
+    role: Role.USER,
+    createdAt: "2026-05-15T12:00:00Z",
+    updatedAt: "2026-05-15T12:00:00Z",
+    orders: [],
+  },
+
+  {
+    _id: "user_4",
+    clerkUserId: "clerk_456789",
+    name: "Pham Hoang D",
+    email: "phamhoangd@example.com",
+    role: Role.USER,
+    createdAt: "2026-05-10T09:45:00Z",
+    updatedAt: "2026-05-10T09:45:00Z",
+    orders: [
+      {
+        _id: "order_4",
+        totalPrice: 560,
+        status: "DELIVERED",
+      },
+    ],
+  },
+
+  {
+    _id: "user_5",
+    name: "Hoang Huy",
+    email: "hoanghuy@example.com",
+    role: Role.USER,
+    createdAt: "2026-05-05T14:20:00Z",
+    updatedAt: "2026-05-05T14:20:00Z",
+    orders: [],
+  },
+]
+export const mockOrders: OrderType[] = [
+  {
+    _id: "order_1",
+    orderNumber: "ORD-2026-001",
+    clerkUserId: "clerk_123456",
+    customerName: "Nguyen Van A",
+    email: "nguyenvana@example.com",
+    userId: "user_1",
+
+    paymentMode: EPaymentMode.PAYPAL,
+    paymentStatus: EPaymentStatus.PAID,
+    totalPrice: 450,
+    amountDiscount: 20,
+    currency: "USD",
+    orderStatus: EOrderStatus.DELIVERED,
+
+    addressShippingId: "address_1",
+    addressShipping: {
+      id: "address_1",
+      customerName: "Nguyen Van A",
+      address: "12 Nguyen Trai",
+    },
+
+    createdAt: "2026-05-20T08:00:00Z",
+    updatedAt: "2026-05-20T08:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_1",
+        quantity: 1,
+        price: 250,
+
+        productId: "product_1",
+        product: {
+          _id: "product_1",
+          name: "Mechanical Keyboard",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae",
+              public_id: "product_1",
+            },
+          ],
+        },
+
+        orderId: "order_1",
+        createdAt: "2026-05-20T08:00:00Z",
+        updatedAt: "2026-05-20T08:00:00Z",
+      },
+
+      {
+        _id: "order_item_2",
+        quantity: 2,
+        price: 100,
+
+        productId: "product_2",
+        product: {
+          _id: "product_2",
+          name: "Gaming Mouse",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1527814050087-3793815479db",
+              public_id: "product_2",
+            },
+          ],
+        },
+
+        orderId: "order_1",
+        createdAt: "2026-05-20T08:00:00Z",
+        updatedAt: "2026-05-20T08:00:00Z",
+      },
+    ],
+  },
+
+  {
+    _id: "order_2",
+    orderNumber: "ORD-2026-002",
+    clerkUserId: "clerk_222222",
+    customerName: "Tran Thi B",
+    email: "tranthib@example.com",
+    userId: "user_2",
+
+    paymentMode: EPaymentMode.CARD,
+    paymentStatus: EPaymentStatus.PAID,
+    totalPrice: 320,
+    amountDiscount: 0,
+    currency: "USD",
+    orderStatus: EOrderStatus.SHIPPING,
+
+    addressShippingId: "address_2",
+    addressShipping: {
+      id: "address_2",
+      customerName: "Tran Thi B",
+      address: "45 Le Loi",
+    },
+
+    createdAt: "2026-05-18T10:00:00Z",
+    updatedAt: "2026-05-18T10:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_3",
+        quantity: 1,
+        price: 120,
+
+        productId: "product_3",
+        product: {
+          _id: "product_3",
+          name: "Wireless Headphones",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+              public_id: "product_3",
+            },
+          ],
+        },
+
+        orderId: "order_2",
+        createdAt: "2026-05-18T10:00:00Z",
+        updatedAt: "2026-05-18T10:00:00Z",
+      },
+    ],
+  },
+
+  {
+    _id: "order_3",
+    orderNumber: "ORD-2026-003",
+    clerkUserId: "clerk_333333",
+    customerName: "Le Van C",
+    email: "levanc@example.com",
+    userId: "user_3",
+
+    paymentMode: EPaymentMode.CASH,
+    paymentStatus: EPaymentStatus.PENDING,
+    totalPrice: 150,
+    amountDiscount: 10,
+    currency: "USD",
+    orderStatus: EOrderStatus.PENDING,
+
+    addressShippingId: "address_3",
+    addressShipping: {
+      id: "address_3",
+      customerName: "Le Van C",
+      address: "78 Tran Hung Dao",
+    },
+
+    createdAt: "2026-05-17T09:00:00Z",
+    updatedAt: "2026-05-17T09:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_4",
+        quantity: 3,
+        price: 50,
+
+        productId: "product_4",
+        product: {
+          _id: "product_4",
+          name: "RGB Mouse Pad",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1587202372775-e229f172b9d7",
+              public_id: "product_4",
+            },
+          ],
+        },
+
+        orderId: "order_3",
+        createdAt: "2026-05-17T09:00:00Z",
+        updatedAt: "2026-05-17T09:00:00Z",
+      },
+    ],
+  },
+
+  {
+    _id: "order_4",
+    orderNumber: "ORD-2026-004",
+    clerkUserId: "clerk_444444",
+    customerName: "Pham Thi D",
+    email: "phamthid@example.com",
+    userId: "user_4",
+
+    paymentMode: EPaymentMode.PAYPAL,
+    paymentStatus: EPaymentStatus.FAILED,
+    totalPrice: 500,
+    amountDiscount: 50,
+    currency: "USD",
+    orderStatus: EOrderStatus.CANCELLED,
+
+    addressShippingId: "address_4",
+    addressShipping: {
+      id: "address_4",
+      customerName: "Pham Thi D",
+      address: "99 Hai Ba Trung",
+    },
+
+    createdAt: "2026-05-16T08:00:00Z",
+    updatedAt: "2026-05-16T08:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_5",
+        quantity: 1,
+        price: 500,
+
+        productId: "product_5",
+        product: {
+          _id: "product_5",
+          name: "UltraWide Monitor",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf",
+              public_id: "product_5",
+            },
+          ],
+        },
+
+        orderId: "order_4",
+        createdAt: "2026-05-16T08:00:00Z",
+        updatedAt: "2026-05-16T08:00:00Z",
+      },
+    ],
+  },
+
+  {
+    _id: "order_5",
+    orderNumber: "ORD-2026-005",
+    clerkUserId: "clerk_555555",
+    customerName: "Hoang Van E",
+    email: "hoangvane@example.com",
+    userId: "user_5",
+
+    paymentMode: EPaymentMode.CARD,
+    paymentStatus: EPaymentStatus.PAID,
+    totalPrice: 220,
+    amountDiscount: 15,
+    currency: "USD",
+    orderStatus: EOrderStatus.PROCESSING,
+
+    addressShippingId: "address_5",
+    addressShipping: {
+      id: "address_5",
+      customerName: "Hoang Van E",
+      address: "15 Nguyen Hue",
+    },
+
+    createdAt: "2026-05-15T07:00:00Z",
+    updatedAt: "2026-05-15T07:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_6",
+        quantity: 2,
+        price: 110,
+
+        productId: "product_6",
+        product: {
+          _id: "product_6",
+          name: "Bluetooth Speaker",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1545454675-3531b543be5d",
+              public_id: "product_6",
+            },
+          ],
+        },
+
+        orderId: "order_5",
+        createdAt: "2026-05-15T07:00:00Z",
+        updatedAt: "2026-05-15T07:00:00Z",
+      },
+    ],
+  },
+]
