@@ -43,8 +43,8 @@ const CategoryListAdmin:React.FC<CategoryListAdminProps> = ({ categories,onEdit,
                     <span className='flex-1'>{category.slug}</span>
                     <span className='flex-2  line-clamp-2'>{category.description}</span>
                     <div className='flex flex-1 gap-2'>
-                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(category.id)}/>
-                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(category.id)}/>
+                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(category._id)}/>
+                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(category._id)}/>
                     </div>
                 </div>
             ))

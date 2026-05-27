@@ -13,7 +13,7 @@ import Image from "next/image";
 interface AddProductModalProps {
   onClose: () => void;
   mode: boolean;
-  productEdit?: Product
+  productEdit?: Product;
 }
 
 const formSchema = z.object({
@@ -40,22 +40,26 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,productEdit }) => {
+const AddProductModal: React.FC<AddProductModalProps> = ({
+  onClose,
+  mode,
+  productEdit,
+}) => {
   const [technical, setTechnical] = useState({
     key: "",
     value: "",
   });
-  const [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<ImageType[]>([]);
   const [technicalDetails, setTechnicalDetails] = useState<
     ProductTechnicalDetails[]
   >([]);
 
-  useEffect(()=>{
-    if(productEdit){
-        setImages(productEdit.images)
-        setTechnicalDetails(productEdit.technicalDetails)
+  useEffect(() => {
+    if (productEdit) {
+      setImages(productEdit.images);
+      setTechnicalDetails(productEdit.technicalDetails);
     }
-  },[productEdit])
+  }, [productEdit]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -63,14 +67,14 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
     defaultValues: {
       name: productEdit?.name ? productEdit?.name : "",
       slug: productEdit?.slug ? productEdit.slug : "",
-      description: productEdit?.description ? productEdit.description :"",
+      description: productEdit?.description ? productEdit.description : "",
 
       price: productEdit?.price ? productEdit.price : 0,
       discount: productEdit?.discount ? productEdit.price : 0,
       stock: productEdit?.stock ? productEdit.stock : 0,
 
       status: productEdit?.status ? productEdit.status : "",
-      variant: productEdit?.variant? productEdit.variant : "",
+      variant: productEdit?.variant ? productEdit.variant : "",
 
       isFeatured: productEdit?.isFeatured ? productEdit.isFeatured : true,
 
@@ -79,7 +83,9 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
 
       isActive: productEdit?.isActive ? productEdit.isActive : true,
 
-      fullDescription: productEdit?.fullDescription ? productEdit.fullDescription : "",
+      fullDescription: productEdit?.fullDescription
+        ? productEdit.fullDescription
+        : "",
     },
   });
 
@@ -114,13 +120,20 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
       (item) => item.key !== id,
     );
     setTechnicalDetails(newTechnicalDetails);
-    setTechnical({key:'',value:''})
+    setTechnical({ key: "", value: "" });
   };
 
-  const handleDeleteImages = (item:string)=>{
-    const newListImage = images.filter(image => image.name !== item)
-    setImages(newListImage)
-  }
+  const handleDeleteImages = (item: string) => {
+    setImages((prev) =>
+      prev.filter((image) => {
+        if (image instanceof File) {
+          return image.name !== item;
+        }
+
+        return image.public_id !== item;
+      }),
+    );
+  };
 
   return (
     <div
@@ -131,7 +144,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
         onClick={(e) => e.stopPropagation()}
         className={`
             fixed top-0 right-0
-            h-screen max-w-[30%]
+            h-screen w-[30%]
             overflow-y-scroll
             bg-white p-4
             z-50
@@ -231,18 +244,18 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
           <div className="flex gap-2 items-center">
             <label htmlFor="">Status:</label>
             <div className="max-w-20">
-                <Controller
-                    control={control}
-                    name="status"
-                    render={({ field }) => (
-                    <SelectComponent
-                        title="Status"
-                        data={Object.values(ProductStatus)}
-                        value={field.value || ""}
-                        onChange={field.onChange}
-                    />
-                    )}
-                />
+              <Controller
+                control={control}
+                name="status"
+                render={({ field }) => (
+                  <SelectComponent
+                    title="Status"
+                    data={Object.values(ProductStatus)}
+                    value={field.value || ""}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
             </div>
           </div>
 
@@ -250,58 +263,58 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
           <div className="flex gap-2 items-center">
             <label htmlFor="">Variant:</label>
             <div className="max-w-50">
-          <Controller
-            control={control}
-            name="variant"
-            render={({ field }) => (
-              <SelectComponent
-                title="Variant"
-                data={Object.values(VariantProduct)}
-                value={field.value || ""}
-                onChange={field.onChange}
+              <Controller
+                control={control}
+                name="variant"
+                render={({ field }) => (
+                  <SelectComponent
+                    title="Variant"
+                    data={Object.values(VariantProduct)}
+                    value={field.value || ""}
+                    onChange={field.onChange}
+                  />
+                )}
               />
-            )}
-          />
             </div>
-            </div>
+          </div>
           {/* Category */}
 
           <div className="flex gap-2 items-center">
             <label htmlFor="">Category:</label>
             <div className="max-w-40">
-          <Controller
-            control={control}
-            name="category"
-            render={({ field }) => (
-              <SelectComponent
-                title="Category"
-                data={Object.values(VariantProduct)}
-                value={field.value || ""}
-                onChange={field.onChange}
+              <Controller
+                control={control}
+                name="category"
+                render={({ field }) => (
+                  <SelectComponent
+                    title="Category"
+                    data={Object.values(VariantProduct)}
+                    value={field.value || ""}
+                    onChange={field.onChange}
+                  />
+                )}
               />
-            )}
-          />
-          </div>
+            </div>
           </div>
 
           {/* Brand */}
           <div className="flex gap-2 items-center">
             <label htmlFor="">Status:</label>
             <div className="max-w-40">
-          <Controller
-            control={control}
-            name="brand"
-            render={({ field }) => (
-              <SelectComponent
-                title="Brand"
-                data={Object.values(VariantProduct)}
-                value={field.value || ""}
-                onChange={field.onChange}
+              <Controller
+                control={control}
+                name="brand"
+                render={({ field }) => (
+                  <SelectComponent
+                    title="Brand"
+                    data={Object.values(VariantProduct)}
+                    value={field.value || ""}
+                    onChange={field.onChange}
+                  />
+                )}
               />
-            )}
-          />
             </div>
-            </div>
+          </div>
           {/* Featured */}
           <div className="flex items-center gap-2">
             <label>Featured:</label>
@@ -357,17 +370,26 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
             </div>
           </div>
 
-        <div className="flex flex-col">
-
-          {technicalDetails.map((item, index) => (
-            <div key={index} className="flex  bg-gray-200 py-2">
-              <input className="min-w-0 flex-1 px-2" readOnly value={item.key} />
-              <input className="min-w-0 flex-2 px-2" readOnly value={item.value} />
-              <X className="shrink-0 w-20 cursor-pointer  " onClick={() => handleDeleteTechnicalDetails(item.key)}></X>
-            </div>
-          ))}
-
-        </div>
+          <div className="flex flex-col">
+            {technicalDetails.map((item, index) => (
+              <div key={index} className="flex  bg-gray-200 py-2">
+                <input
+                  className="min-w-0 flex-1 px-2"
+                  readOnly
+                  value={item.key}
+                />
+                <input
+                  className="min-w-0 flex-2 px-2"
+                  readOnly
+                  value={item.value}
+                />
+                <X
+                  className="shrink-0 w-20 cursor-pointer  "
+                  onClick={() => handleDeleteTechnicalDetails(item.key)}
+                ></X>
+              </div>
+            ))}
+          </div>
           {/* Images */}
           <div className="flex gap-2">
             <label>Images:</label>
@@ -383,25 +405,37 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, mode,product
               type="file"
               className="hidden"
               onChange={(e) =>
-                setImages(prev=> [...prev,...e.target.files ? Array.from(e.target.files) : []])
+                setImages((prev) => [
+                  ...prev,
+                  ...(e.target.files ? Array.from(e.target.files) : []),
+                ])
               }
             />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {images.map((item, index) => (
-                <div key={index} className="relative">
+              <div key={index} className="relative">
+                <Image
+                  src={
+                    item instanceof File
+                      ? URL.createObjectURL(item)
+                      : item.secure_url
+                  }
+                  alt="Product Images"
+                  width={100}
+                  height={50}
+                />
 
-              <Image
-                src={URL.createObjectURL(item)}
-                alt="Product Images"
-                width={100}
-                height={50}
-              />
-                <X onClick={()=>handleDeleteImages(item.name)} className="absolute top-0 right-0 text-red-500 cursor-pointer"></X>
-                </div>
-
-
+                <X
+                  onClick={() =>
+                    handleDeleteImages(
+                      item instanceof File ? item.name : item.public_id,
+                    )
+                  }
+                  className="absolute top-0 right-0 text-red-500 cursor-pointer"
+                ></X>
+              </div>
             ))}
           </div>
 
