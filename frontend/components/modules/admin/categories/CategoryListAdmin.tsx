@@ -36,15 +36,15 @@ const CategoryListAdmin:React.FC<CategoryListAdminProps> = ({ categories,onEdit,
             categories.map((category,index)=>(
                 <div key={index} className='rounded-md flex gap-2 px-4 py-2 bg-white text-black items-center justify-center'>
                     <div className='flex flex-1 gap-2 items-center '>
-                    <Image src={ DefaultImage} alt='category Image Admin' width={50} height={50} className='rounded-md'/>
+                    <Image src={ category.images ? category.images[0].secure_url : DefaultImage} alt='category Image Admin' width={50} height={50} className='rounded-md max-h-12'/>
                     <span className='line-clamp-1'>{category.title}</span>
                     </div>
                     
                     <span className='flex-1'>{category.slug}</span>
                     <span className='flex-2  line-clamp-2'>{category.description}</span>
                     <div className='flex flex-1 gap-2'>
-                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(category._id)}/>
-                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(category._id)}/>
+                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(category.id)}/>
+                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(category.id)}/>
                     </div>
                 </div>
             ))

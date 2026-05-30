@@ -1,7 +1,4 @@
-export interface ImageType {
-  secure_url: string;
-  secure_id: string;
-}
+
 
 export interface CategoryType {
   id: string;
@@ -14,5 +11,11 @@ export interface CategoryType {
   createdAt: Date;
   updatedAt: Date;
 
-  products: Product[]; // hoặc any[] nếu chưa có ProductType
-}
+  products: Product[]; }
+
+  export interface CategoryRequest {
+    title: string,
+    slug: string,
+    description: string,
+    images: ImageType
+  }

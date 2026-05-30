@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import Providers from "../contants/provider";
 
 
 export const metadata: Metadata = {
@@ -18,9 +19,11 @@ export default function RootLayout({
 }>) {
   return (
         <ClerkProvider>
+          <Providers>
           <div className="flex flex-col w-full h-screen ">
            {children}
           </div>
+          </Providers>
         </ClerkProvider>
   );
 }

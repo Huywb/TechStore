@@ -6,6 +6,9 @@ import { z } from "zod";
 import Image from "next/image";
 import { CategoryType } from "@/app/types/category.type";
 import { getImageSrc } from "@/app/common/helper";
+import { useCategoryV2 } from "@/app/hooks/useCategory";
+import { uploadSingleImages } from "@/app/services/cloudinary/cloudinary.service";
+import toast from "react-hot-toast";
 
 interface AddCategoryModalProps {
   onClose: () => void;
@@ -27,6 +30,9 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
   categoryEdit,
 }) => {
   const [images, setImages] = useState<ImageType | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { updateCategoryMutation, createCategoryMutation } = useCategoryV2();
 
   useEffect(() => {
     if (categoryEdit) {
@@ -48,13 +54,44 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = form;
 
-  const handleCreateProduct = (data: FormValues) => {
-    console.log({
-      ...data,
-      images,
-    });
+  const handleCreateProduct =async (data: FormValues) => {
+    setIsLoading(true)
+    try {
+      console.log({
+        ...data,
+        images,
+      });
+
+      let uploadImage 
+      if(images instanceof File){
+        uploadImage = await uploadSingleImages(images)
+      }
+      const mergeData = {...data,images: uploadImage ? uploadImage : images}
+      if(categoryEdit){
+      const response = updateCategoryMutation({id : categoryEdit.id, data : mergeData})
+      if(!response){
+        toast.error("Something wrong went update category")
+      }
+      toast.success("Update Category success")
+      onClose()
+      setImages(null)
+    } else {
+      const response = createCategoryMutation(mergeData)
+      if(!response){
+        toast.error("Something wrong went create new Category")
+      }
+      toast.success("Create new Category success")
+      reset()
+      setImages(null)
+    }
+    } catch (error) {
+      console.log("Something wrong on CategoryModal",error)
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -168,7 +205,13 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
           </div>
 
           <button type="submit" className="rounded-md bg-blue-500 p-2">
-            Add Category
+            {isLoading ? (
+              <>
+                Processing…
+              </>
+            ) : (
+              <span>{categoryEdit ? "Edit Category" : "Create Category"}</span>
+            )}
           </button>
         </form>
       </div>
