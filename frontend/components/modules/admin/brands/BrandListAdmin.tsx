@@ -19,9 +19,8 @@ const BrandListAdmin:React.FC<BrandListAdminProps> = ({ brands,onEdit,onDelete }
     }
 
     const handleRemove = (id:string)=>{
-        onDelete(id)
         if(window.confirm("Delete this product")){
-            toast.success("Delete product success")
+            onDelete(id)
         }
     }
   return (
@@ -36,15 +35,15 @@ const BrandListAdmin:React.FC<BrandListAdminProps> = ({ brands,onEdit,onDelete }
             brands.map((brand,index)=>(
                 <div key={index} className='rounded-md flex gap-2 px-4 py-2 bg-white text-black items-center justify-center'>
                     <div className='flex flex-1 gap-2 items-center '>
-                    <Image src={ DefaultImage} alt='brand Image Admin' width={50} height={50} className='rounded-md'/>
+                    <Image src={brand.images ? brand.images[0].secure_url : DefaultImage} alt='brand Image Admin' width={50} height={50} className='rounded-md max-h-12'/>
                     <span className='line-clamp-1'>{brand.title}</span>
                     </div>
                     
                     <span className='flex-1'>{brand.slug}</span>
                     <span className='flex-2  line-clamp-2'>{brand.description}</span>
                     <div className='flex flex-1 gap-2'>
-                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(brand._id)}/>
-                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(brand._id)}/>
+                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(brand.id)}/>
+                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(brand.id)}/>
                     </div>
                 </div>
             ))

@@ -6,6 +6,9 @@ import { z } from "zod";
 import Image from "next/image";
 import { getImageSrc } from "@/app/common/helper";
 import { BrandType } from "@/app/types/brand.type";
+import toast from "react-hot-toast";
+import { uploadSingleImages } from "@/app/services/cloudinary/cloudinary.service";
+import { userBrandV2 } from "@/app/hooks/useBrand";
 
 interface AddBrandModalProps {
   onClose: () => void;
@@ -27,6 +30,8 @@ const AddBrandModal: React.FC<AddBrandModalProps> = ({
   brandEdit,
 }) => {
   const [images, setImages] = useState<ImageType | null>(null);
+  const [isLoading,setIsLoading] = useState(false)
+  const {createBrandMutation,updateBrandMutation} = userBrandV2()
 
   useEffect(() => {
     if (brandEdit) {
@@ -48,13 +53,46 @@ const AddBrandModal: React.FC<AddBrandModalProps> = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = form;
 
-  const handleCreateProduct = (data: FormValues) => {
+
+  const handleCreateProduct =async (data: FormValues) => {
+    setIsLoading(true)
+    try {
     console.log({
       ...data,
       images,
     });
+    let uploadImage 
+    if(images instanceof File){
+        uploadImage = await uploadSingleImages(images)
+    }
+
+    const mergeData = {...data, images : uploadImage ? uploadImage : images}
+    if(brandEdit){
+      const response = updateBrandMutation({id : brandEdit.id, data : mergeData})
+      if(!response){
+        toast.error("Something wrong went update brand")
+      }
+      toast.success("Update brand success")
+      onClose()
+      setImages(null)
+    } else {
+      const response = createBrandMutation(mergeData)
+      if(!response){
+        toast.error("Something wrong went create new Brand")
+      }
+      toast.success("Create new brand success")
+      reset()
+      setImages(null)
+    }
+    } catch (error) {
+      console.log("Error went create new Brand",error)      
+    } finally {
+      setIsLoading(false)
+    }
+    
   };
 
   return (
@@ -167,8 +205,17 @@ const AddBrandModal: React.FC<AddBrandModalProps> = ({
             </div>
           </div>
 
-          <button type="submit" className="rounded-md bg-blue-500 p-2">
-            Add Brand
+          <button disabled={isLoading} type="submit" className="rounded-md bg-blue-500 p-2">
+            {
+              isLoading ? (
+                <>
+                  Processing…
+                </>
+              ) : (
+                <span>{brandEdit ? 'Edit Brand' : 'Create Brand'}</span>
+              )  
+
+            }
           </button>
         </form>
       </div>

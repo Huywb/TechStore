@@ -1,3 +1,4 @@
+import { BrandType } from "../types/brand.type"
 
 
 export const SortStringShow = (text:string)=>{
@@ -23,3 +24,45 @@ export const getImageSrc = (image: ImageType) => {
 
   return image.secure_url;
 };
+
+
+export const ConvertOptions = (data : BrandType[]) =>{
+  return data.map((item)=>({
+    id: item.id,
+    value: item.title
+  }))
+}
+
+export const StatusOption = [
+  {
+    id: "NEW",
+    value: "NEW"
+  },
+  {
+    id: "HOT",
+    value: "HOT"
+  },
+  {
+    id: "SALE",
+    value: "SALE"
+  }
+]
+
+export const VariantOption = [
+  {
+    id: "GADGET",
+    value: "GADGET"
+  },
+  {
+    id: "APPLIANCES",
+    value: "APPLIANCES"
+  },
+  {
+    id: "REFRIGERATORS",
+    value: "REFRIGERATORS"
+  },
+  {
+    id: "OTHERS",
+    value: "OTHERS"
+  }
+]
