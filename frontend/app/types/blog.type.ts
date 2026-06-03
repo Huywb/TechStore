@@ -9,7 +9,7 @@ export interface BlogSlugRequest {
 }
 
 export interface BlogType {
-  _id: string
+  id: string
   title: string
   slug: string
   images: ImageType[]
@@ -17,4 +17,12 @@ export interface BlogType {
   description: string
   createdAt: string
   updatedAt: string
+}
+
+export interface BlogRequest {
+    title:string,
+    slug:string,
+    images: ImageType,
+    url: string,
+    description: string
 }

@@ -37,7 +37,7 @@ const BlogListAdmin:React.FC<BlogListAdminProps> = ({ blogs,onEdit,onDelete }) =
             blogs.map((blog,index)=>(
                 <div key={index} className='rounded-md flex gap-10 px-4 py-2 bg-white text-black items-center justify-center'>
                     <div className='flex flex-1 gap-2 items-center '>
-                    <Image src={ DefaultImage} alt='blog Image Admin' width={50} height={50} className='rounded-md'/>
+                    <Image src={blog.images? blog.images[0].secure_url : DefaultImage} alt='blog Image Admin' width={50} height={50} className='rounded-md'/>
                     <span className='line-clamp-2'>{blog.title}</span>
                     </div>
                     
@@ -45,8 +45,8 @@ const BlogListAdmin:React.FC<BlogListAdminProps> = ({ blogs,onEdit,onDelete }) =
                     <span className='flex-1 line-clamp-2'>{blog.url}</span>
                     <span className='flex-2  line-clamp-2'>{blog.description}</span>
                     <div className='flex flex-1 gap-2'>
-                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(blog._id)}/>
-                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(blog._id)}/>
+                        <Edit className='text-green-500 cursor-pointer' onClick={()=>handleEdit(blog.id)}/>
+                        <Trash className='text-red-500 cursor-pointer' onClick={()=>handleRemove(blog.id)}/>
                     </div>
                 </div>
             ))

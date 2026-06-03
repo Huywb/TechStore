@@ -6,6 +6,9 @@ import { z } from "zod";
 import Image from "next/image";
 import { getImageSrc } from "@/app/common/helper";
 import { BlogType } from "@/app/types/blog.type";
+import { useBlogBySlug, useBlogV2 } from "@/app/hooks/useBlog";
+import { uploadSingleImages } from "@/app/services/cloudinary/cloudinary.service";
+import toast from "react-hot-toast";
 
 interface AddBlogModalProps {
   onClose: () => void;
@@ -28,6 +31,9 @@ const AddBlogModal: React.FC<AddBlogModalProps> = ({
   blogEdit,
 }) => {
   const [images, setImages] = useState<ImageType | null>(null);
+  const [isLoading,setIsLoading] = useState(false)
+
+  const {createBlogMutation,updateBlogMutation} = useBlogV2()
 
   useEffect(() => {
     if (blogEdit) {
@@ -50,13 +56,43 @@ const AddBlogModal: React.FC<AddBlogModalProps> = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = form;
 
-  const handleCreateProduct = (data: FormValues) => {
-    console.log({
+  const handleCreateProduct =async (data: FormValues) => {
+    setIsLoading(true)
+    try {
+          console.log({
       ...data,
       images,
     });
+
+    let uploadImage 
+    if(images instanceof File){
+      uploadImage = await uploadSingleImages(images)
+    }
+    const mergeData = {...data, images : uploadImage ? uploadImage : images}
+
+    if(blogEdit){
+      const response = await updateBlogMutation({id: blogEdit.id,data: mergeData})
+      if(response){
+        toast.success("Update blog success")
+        reset()
+        setImages(null)
+      } 
+    } else {
+        const response = await createBlogMutation(mergeData)
+        if(response){
+          toast.success("Create new blog success")
+          reset()
+          setImages(null)
+        }
+      }
+    } catch (error) {
+      console.log("Something wrong on Add blog Modal",error)
+    }finally {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -182,7 +218,16 @@ const AddBlogModal: React.FC<AddBlogModalProps> = ({
           </div>
 
           <button type="submit" className="rounded-md bg-blue-500 p-2">
-            Add Blog
+            {
+              isLoading ? (
+                <>
+                  Processing…
+                </>
+              ) : (
+                <span>{blogEdit ? 'Edit Blog' : 'Create Blog'}</span>
+              )  
+
+            }
           </button>
         </form>
       </div>
