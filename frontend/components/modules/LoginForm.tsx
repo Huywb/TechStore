@@ -5,6 +5,10 @@ import { Button } from '../ui/button'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useAuth } from '@/app/hooks/useAuth'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
+import { useState } from 'react'
 
 const formSchema = z.object({
     email: z.string().email({message:"Invalid email address"}),
@@ -14,6 +18,9 @@ const formSchema = z.object({
 type FormValue = z.infer<typeof formSchema>
 
 const LoginForm = () => {
+    const {AdminLogin} = useAuth()
+    const router = useRouter()
+    const [loading,setLoading] = useState(false)
 
     const { register, handleSubmit } = useForm<FormValue>({
         resolver: zodResolver(formSchema),
@@ -23,8 +30,20 @@ const LoginForm = () => {
         }
     })
 
-    const handleLogin = (data: FormValue)=>{
+    const handleLogin = async(data: FormValue)=>{
+        setLoading(true)
+        try {
         console.log(data)
+            const response = await AdminLogin(data)
+            if(!response) {
+                toast.error("Something wrong went login ")
+            }
+            router.push('/admin/dashboard')
+        } catch (error) {
+            console.log("Error went login Admin", error)            
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -39,7 +58,7 @@ const LoginForm = () => {
             <Label htmlFor='password' className='text-gray-700'>Password</Label>
             <Input {...register('password')} id='password' type='password' placeholder='Enter your password' className='py-5 outline-none shadow-none'/>
         </div>
-        <Button type='submit' className='cursor-pointer py-5'>Login</Button>
+        <Button disabled={loading} type='submit' className='cursor-pointer py-5'>Login</Button>
     </form>
   )
 }

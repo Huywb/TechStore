@@ -109,6 +109,15 @@ export const AdminProductTab = [
     {title: 'Deleted ', value: 'deleted'},
 ]
 
+export const AdminUserTab = [
+  {title: 'All', value: 'all'},
+  {title: 'Active', value: 'active'},
+  {title: 'InActive', value: 'inactive'},
+  {title: 'ADMIN', value: 'admin'},
+  {title: 'USER', value: 'user'},
+  {title: 'Deleted', value: 'deleted'},
+]
+
 
 export enum ProductStatus {
   NEW = "NEW",
@@ -895,24 +904,90 @@ export const mockOrderItems = [
   },
 ]
 
-export const mockUsers : UserType[] = [
+export const mockUsers : UserType[]  = [
   {
     _id: "user_1",
     clerkUserId: "clerk_123456",
     name: "Nguyen Van A",
     email: "nguyenvana@example.com",
     role: ERole.ADMIN,
+    isActive: true,
+    password: '123456',
     createdAt: "2026-05-20T08:00:00Z",
     updatedAt: "2026-05-20T08:00:00Z",
     orders: [
       {
-        _id: "order_1",
+       _id: "order_1",
+    orderNumber: "ORD-2026-001",
+    clerkUserId: "clerk_123456",
+    customerName: "Nguyen Van A",
+    email: "nguyenvana@example.com",
+    userId: "user_1",
+
+    paymentMode: EPaymentMode.PAYPAL,
+    paymentStatus: EPaymentStatus.PAID,
+    totalPrice: 450,
+    amountDiscount: 20,
+    currency: "USD",
+    orderStatus: EOrderStatus.DELIVERED,
+
+    addressShippingId: "address_1",
+    addressShipping: {
+      id: "address_1",
+      customerName: "Nguyen Van A",
+      address: "12 Nguyen Trai",
+    },
+
+    createdAt: "2026-05-20T08:00:00Z",
+    updatedAt: "2026-05-20T08:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_1",
+        quantity: 1,
         price: 250,
-        quantity: 4,
-        productId: "",
-        orderId: "",
-        createdAt: "",
-        updatedAt: ""
+
+        productId: "product_1",
+        product: {
+          _id: "product_1",
+          name: "Mechanical Keyboard",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae",
+              public_id: "product_1",
+            },
+          ],
+        },
+
+        orderId: "order_1",
+        createdAt: "2026-05-20T08:00:00Z",
+        updatedAt: "2026-05-20T08:00:00Z",
+      },
+
+      {
+        _id: "order_item_2",
+        quantity: 2,
+        price: 100,
+
+        productId: "product_2",
+        product: {
+          _id: "product_2",
+          name: "Gaming Mouse",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1527814050087-3793815479db",
+              public_id: "product_2",
+            },
+          ],
+        },
+
+        orderId: "order_1",
+        createdAt: "2026-05-20T08:00:00Z",
+        updatedAt: "2026-05-20T08:00:00Z",
+      },
+    ],
       },
     ],
   },
@@ -922,14 +997,60 @@ export const mockUsers : UserType[] = [
     clerkUserId: "clerk_654321",
     name: "Tran Thi B",
     email: "tranthib@example.com",
-    role: Role.USER,
+    role: ERole.USER,
+    isActive: true,
     createdAt: "2026-05-18T10:30:00Z",
     updatedAt: "2026-05-18T10:30:00Z",
     orders: [
       {
         _id: "order_3",
-        totalPrice: 89,
-        status: "SHIPPING",
+    orderNumber: "ORD-2026-003",
+    clerkUserId: "clerk_333333",
+    customerName: "Le Van C",
+    email: "levanc@example.com",
+    userId: "user_3",
+
+    paymentMode: EPaymentMode.CASH,
+    paymentStatus: EPaymentStatus.PENDING,
+    totalPrice: 150,
+    amountDiscount: 10,
+    currency: "USD",
+    orderStatus: EOrderStatus.PENDING,
+
+    addressShippingId: "address_3",
+    addressShipping: {
+      id: "address_3",
+      customerName: "Le Van C",
+      address: "78 Tran Hung Dao",
+    },
+
+    createdAt: "2026-05-17T09:00:00Z",
+    updatedAt: "2026-05-17T09:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_4",
+        quantity: 3,
+        price: 50,
+
+        productId: "product_4",
+        product: {
+          _id: "product_4",
+          name: "RGB Mouse Pad",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1587202372775-e229f172b9d7",
+              public_id: "product_4",
+            },
+          ],
+        },
+
+        orderId: "order_3",
+        createdAt: "2026-05-17T09:00:00Z",
+        updatedAt: "2026-05-17T09:00:00Z",
+      },
+    ],
       },
     ],
   },
@@ -939,10 +1060,62 @@ export const mockUsers : UserType[] = [
     clerkUserId: "clerk_789456",
     name: "Le Minh C",
     email: "leminhc@example.com",
-    role: Role.USER,
+    role: ERole.USER,
+    isActive: true,
     createdAt: "2026-05-15T12:00:00Z",
     updatedAt: "2026-05-15T12:00:00Z",
-    orders: [],
+    orders: [
+      {
+        _id: "order_3",
+    orderNumber: "ORD-2026-003",
+    clerkUserId: "clerk_333333",
+    customerName: "Le Van C",
+    email: "levanc@example.com",
+    userId: "user_3",
+
+    paymentMode: EPaymentMode.CASH,
+    paymentStatus: EPaymentStatus.PENDING,
+    totalPrice: 150,
+    amountDiscount: 10,
+    currency: "USD",
+    orderStatus: EOrderStatus.PENDING,
+
+    addressShippingId: "address_3",
+    addressShipping: {
+      id: "address_3",
+      customerName: "Le Van C",
+      address: "78 Tran Hung Dao",
+    },
+
+    createdAt: "2026-05-17T09:00:00Z",
+    updatedAt: "2026-05-17T09:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_4",
+        quantity: 3,
+        price: 50,
+
+        productId: "product_4",
+        product: {
+          _id: "product_4",
+          name: "RGB Mouse Pad",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1587202372775-e229f172b9d7",
+              public_id: "product_4",
+            },
+          ],
+        },
+
+        orderId: "order_3",
+        createdAt: "2026-05-17T09:00:00Z",
+        updatedAt: "2026-05-17T09:00:00Z",
+      },
+    ],
+      }
+    ],
   },
 
   {
@@ -950,15 +1123,61 @@ export const mockUsers : UserType[] = [
     clerkUserId: "clerk_456789",
     name: "Pham Hoang D",
     email: "phamhoangd@example.com",
-    role: Role.USER,
+    role: ERole.USER,
+    isActive: true,
     createdAt: "2026-05-10T09:45:00Z",
     updatedAt: "2026-05-10T09:45:00Z",
     orders: [
       {
-        _id: "order_4",
-        totalPrice: 560,
-        status: "DELIVERED",
+    _id: "order_4",
+    orderNumber: "ORD-2026-004",
+    clerkUserId: "clerk_444444",
+    customerName: "Pham Thi D",
+    email: "phamthid@example.com",
+    userId: "user_4",
+
+    paymentMode: EPaymentMode.PAYPAL,
+    paymentStatus: EPaymentStatus.FAILED,
+    totalPrice: 500,
+    amountDiscount: 50,
+    currency: "USD",
+    orderStatus: EOrderStatus.CANCELLED,
+
+    addressShippingId: "address_4",
+    addressShipping: {
+      id: "address_4",
+      customerName: "Pham Thi D",
+      address: "99 Hai Ba Trung",
+    },
+
+    createdAt: "2026-05-16T08:00:00Z",
+    updatedAt: "2026-05-16T08:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_5",
+        quantity: 1,
+        price: 500,
+
+        productId: "product_5",
+        product: {
+          _id: "product_5",
+          name: "UltraWide Monitor",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf",
+              public_id: "product_5",
+            },
+          ],
+        },
+
+        orderId: "order_4",
+        createdAt: "2026-05-16T08:00:00Z",
+        updatedAt: "2026-05-16T08:00:00Z",
       },
+    ],
+  },
     ],
   },
 
@@ -966,13 +1185,63 @@ export const mockUsers : UserType[] = [
     _id: "user_5",
     name: "Hoang Huy",
     email: "hoanghuy@example.com",
-    role: Role.USER,
+    role: ERole.USER,
+    isActive: false,
     createdAt: "2026-05-05T14:20:00Z",
     updatedAt: "2026-05-05T14:20:00Z",
-    orders: [],
+    orders: [{
+    _id: "order_5",
+    orderNumber: "ORD-2026-005",
+    clerkUserId: "clerk_555555",
+    customerName: "Hoang Van E",
+    email: "hoangvane@example.com",
+    userId: "user_5",
+
+    paymentMode: EPaymentMode.CARD,
+    paymentStatus: EPaymentStatus.PAID,
+    totalPrice: 220,
+    amountDiscount: 15,
+    currency: "USD",
+    orderStatus: EOrderStatus.PROCESSING,
+
+    addressShippingId: "address_5",
+    addressShipping: {
+      id: "address_5",
+      customerName: "Hoang Van E",
+      address: "15 Nguyen Hue",
+    },
+
+    createdAt: "2026-05-15T07:00:00Z",
+    updatedAt: "2026-05-15T07:00:00Z",
+
+    orderItems: [
+      {
+        _id: "order_item_6",
+        quantity: 2,
+        price: 110,
+
+        productId: "product_6",
+        product: {
+          _id: "product_6",
+          name: "Bluetooth Speaker",
+          images: [
+            {
+              secure_url:
+                "https://images.unsplash.com/photo-1545454675-3531b543be5d",
+              public_id: "product_6",
+            },
+          ],
+        },
+
+        orderId: "order_5",
+        createdAt: "2026-05-15T07:00:00Z",
+        updatedAt: "2026-05-15T07:00:00Z",
+      },
+    ],
+  },],
   },
 ]
-export const mockOrders: OrderType[] = [
+export const mockOrders = [
   {
     _id: "order_1",
     orderNumber: "ORD-2026-001",
